@@ -20,12 +20,24 @@ const dbConnect = async (): Promise<void> => {
     throw new Error("URI is not defined");
   }
   await mongoose.connect(URI).then(() => console.log("Database connected"));
+
+  const db = mongoose.connection;
+
+  //collection name
+  const collection = db.collection("persons");
+
+  app.get("/persons", async (req, res) => {
+    const data = await collection.find().limit(10).toArray();
+    res.send(data);
+  });
 };
 
 dbConnect();
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Hello, Server is working fine");
+  res.send({
+    message: "Our server is running",
+  });
 });
 
 app.listen(port, () => {
