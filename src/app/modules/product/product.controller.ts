@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { getAllProductsFromDB } from "./product.service";
+import { getAllProductsFromDB, getProductByIdFromDB } from "./product.service";
 
 export const getAllProducts = async (
   req: Request,
@@ -8,4 +8,14 @@ export const getAllProducts = async (
 ) => {
   const products = await getAllProductsFromDB();
   res.send(products);
+};
+
+export const getProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.params;
+  const product = await getProductByIdFromDB(id);
+  res.send(product);
 };
