@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { getAllProductsFromDB, getProductByIdFromDB } from "./product.service";
+import { sendApiResponse } from "../../utils/responseHandler";
 
 export const getAllProducts = async (
   req: Request,
@@ -7,7 +8,7 @@ export const getAllProducts = async (
   next: NextFunction
 ) => {
   const products = await getAllProductsFromDB();
-  res.send(products);
+  sendApiResponse(res, 200, true, products);
 };
 
 export const getProduct = async (
@@ -17,5 +18,5 @@ export const getProduct = async (
 ) => {
   const { id } = req.params;
   const product = await getProductByIdFromDB(id);
-  res.send(product);
+  sendApiResponse(res, 200, true, product);
 };
