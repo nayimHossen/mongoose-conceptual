@@ -12,6 +12,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+//render ejs
+
+app.set("view engine", "ejs");
+
 //db connection
 dbConnect();
 
@@ -20,9 +24,7 @@ import productRoute from "./app/modules/product/product.router";
 
 //here will be default route
 app.get("/", (req: Request, res: Response) => {
-  res.status(200).json({
-    message: "Welcome to our API",
-  });
+  res.render("index");
 });
 
 //custom routs path
