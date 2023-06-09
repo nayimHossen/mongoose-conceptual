@@ -16,6 +16,7 @@ app.use(express.urlencoded({ extended: false }));
 dbConnect();
 
 //we will import all routes here
+import productRoute from "./app/modules/product/product.router";
 
 //here will be default route
 
